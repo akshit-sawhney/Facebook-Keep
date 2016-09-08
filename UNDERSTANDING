@@ -1,0 +1,20 @@
+React.createClass ---- Creates a new react component. It has some functions....
+Most important of them all is "render"
+render---- Returns the tree of react components that will eventually render to HTML.
+
+
+ReactDOM.render()---- instantiates the root component, starts the framework, and injects markup into the raw DOM element(this raw DOM element is provided as the second argument)
+
+
+ReactDOM module exposes DOM-specific methods.
+React has its own tools.
+
+ReactDOM.render() should be called after the composite components have already been defined.
+
+
+Props are immutable If they are passed by parent, they are still owned by the parent.
+
+To implement interactions, we make use of MUTABLE states.
+this.state is private to the component and can be changed by calling this.setState(). When the state updates, the component is rendered again automatically.
+
+componentDidMount is the method that is called automatically by the react when the component is rendered for the first time.
