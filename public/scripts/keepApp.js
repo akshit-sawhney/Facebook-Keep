@@ -1,6 +1,22 @@
+Array.prototype.contains = function(v) {
+    for(var i = 0; i < this.length; i++) {
+        if(this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function() {
+    var arr = [];
+    for(var i = 0; i < this.length; i++) {
+        if(!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}
 var existingData = [
     {
-        'label': 'FOOTBALL',
+        'label': 'OTHER',
         'title': 'REAL MADRID',
         'text': 'HALA MADRID'
     },
@@ -18,13 +34,15 @@ var existingData = [
 var OuterContainer = React.createClass({
     getInitialState: function() {
         return {
+            labelValue: '',
             titleValue: '',
             noteValue: '',
             keepData: existingData
         }
     },
-    newKeep: function(titleValueNew, noteValueNew, newKeep) {
+    newKeep: function(titleValueNew, noteValueNew, newTitle, newKeep) {
         this.setState( {
+            labelValue: '',
             titleValue: '',
             noteValue: '',
             keepData: newKeep
@@ -44,7 +62,7 @@ var KeepList = React.createClass({
         var data = [];
         this.props.keep.forEach(function(individualData) {
             data.push(
-                <tr key={individualData.title}>
+                <tr key={individualData.text}>
                     <td>
                         {individualData.label}
                     </td>
@@ -80,7 +98,7 @@ var KeepInput = React.createClass({
     keepNote: function(e) {
         e.preventDefault();
         var newObject = {
-            'label': 'FOOTBALL',
+            'label': this.refs.labelField.value,
             'title': this.refs.titleField.value,
             'text': this.refs.noteField.value
         };
@@ -91,14 +109,29 @@ var KeepInput = React.createClass({
         this.props.keepNotePass(
             this.refs.titleField.value,
             this.refs.noteField.value,
+            this.refs.labelField.value,
             oldKeep
         );
     },
     render: function() {
+        var keepData = this.props.keep;
+        console.log(keepData);
+        var labelArray = [];
+        keepData.forEach(function(individualData) {
+            labelArray.push(individualData.label);
+        });
+        var uniques = labelArray.unique();
+        var selectOptions = [];
+        for(var i=0; i<uniques.length; i++) {
+            selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
+        }
         return (
             <form onSubmit={this.keepNote}>
                 <input ref="titleField" type="text" placeholder="Title" />
                 <textarea ref="noteField" rows="4" cols="50" placeholder="Note" />
+                <select ref="labelField">
+                    {selectOptions}
+                </select>
                 <input type="submit" value="Add" />
             </form>
         )
