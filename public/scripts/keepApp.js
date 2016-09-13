@@ -16,16 +16,19 @@ Array.prototype.unique = function() {
 }
 var existingData = [
     {
+        'key': 0,
         'label': 'OTHER',
         'title': 'REAL MADRID',
         'text': 'HALA MADRID'
     },
     {
+        'key': 1,
         'label': 'FOOTBALL',
         'title': 'MAN UNITED',
         'text': 'GLORY GLORY MAN UNITED'
     },
     {
+        'key': 2,
         'label': 'FOOTBALL',
         'title': 'LIVERPOOL',
         'text': 'YOU WILL NEVER WALK ALONE'
@@ -62,7 +65,7 @@ var KeepList = React.createClass({
         var data = [];
         this.props.keep.forEach(function(individualData) {
             data.push(
-                <tr key={individualData.text}>
+                <tr key={individualData.key}>
                     <td>
                         {individualData.label}
                     </td>
@@ -105,7 +108,15 @@ var KeepInput = React.createClass({
         this.refs.titleField.value = '';
         this.refs.noteField.value = '';
         var oldKeep = this.props.keep;
+        var maxKey = 0;
+        for(var i=0; i<oldKeep.length; i++) {
+            if(oldKeep[i].key > maxKey) {
+                maxKey = oldKeep[i].key;
+            }
+        }
+        newObject.key = parseInt(maxKey) +1;
         oldKeep.push(newObject);
+        console.log(oldKeep);
         this.props.keepNotePass(
             this.refs.titleField.value,
             this.refs.noteField.value,
@@ -115,7 +126,6 @@ var KeepInput = React.createClass({
     },
     render: function() {
         var keepData = this.props.keep;
-        console.log(keepData);
         var labelArray = [];
         keepData.forEach(function(individualData) {
             labelArray.push(individualData.label);
