@@ -136,7 +136,7 @@ var KeepInput = React.createClass({
         });
         var uniques = labelArray.unique();
         var selectOptions = [];
-        selectOptions.push(<option key="blankKey" value="blankValue" disabled>Choose a label</option>);
+        selectOptions.push(<option key="blankKey" value="No Label" disabled>Choose a label</option>);
         for(var i=0; i<uniques.length; i++) {
             selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
         }
@@ -145,7 +145,7 @@ var KeepInput = React.createClass({
             <h1 className="formHeadingClass">FACEBOOK KEEP</h1>
                 <input className="titleClass" ref="titleField" type="text" placeholder="Title" />
                 <textarea className="noteClass"  ref="noteField" rows="4" cols="50" placeholder="Note" />
-                <select defaultValue="blankValue" className="labelClass"  ref="labelField">
+                <select defaultValue="No Label" className="labelClass"  ref="labelField">
                     {selectOptions}
                 </select>
                 <input className="newLabelClass"  type="text" ref="newLabel" placeholder="Add A New Label" />
