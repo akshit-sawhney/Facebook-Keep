@@ -100,13 +100,18 @@ var KeepInput = React.createClass({
     },
     keepNote: function(e) {
         e.preventDefault();
+        var labelValue = this.refs.labelField.value
+        if(this.refs.newLabel.value) {
+            labelValue = this.refs.newLabel.value;
+        }
         var newObject = {
-            'label': this.refs.labelField.value,
+            'label': labelValue,
             'title': this.refs.titleField.value,
             'text': this.refs.noteField.value
         };
         this.refs.titleField.value = '';
         this.refs.noteField.value = '';
+        this.refs.newLabel.value = '';
         var oldKeep = this.props.keep;
         var maxKey = 0;
         for(var i=0; i<oldKeep.length; i++) {
@@ -116,7 +121,6 @@ var KeepInput = React.createClass({
         }
         newObject.key = parseInt(maxKey) +1;
         oldKeep.push(newObject);
-        console.log(oldKeep);
         this.props.keepNotePass(
             this.refs.titleField.value,
             this.refs.noteField.value,
@@ -142,6 +146,7 @@ var KeepInput = React.createClass({
                 <select ref="labelField">
                     {selectOptions}
                 </select>
+                <input type="text" ref="newLabel" placeholder="New Label" />
                 <input type="submit" value="Add" />
             </form>
         )
