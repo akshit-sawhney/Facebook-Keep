@@ -149,16 +149,27 @@ var KeepInput = React.createClass({
             selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
         }
         return (
-            <form className="formClass" onSubmit={this.keepNote}>
-            <h1 className="formHeadingClass">FACEBOOK KEEP</h1>
-                <input className="titleClass" ref="titleField" type="text" placeholder="Title" />
-                <textarea className="noteClass"  ref="noteField" rows="4" cols="50" placeholder="Note" />
-                <select defaultValue="No Label" className="labelClass"  ref="labelField">
-                    {selectOptions}
-                </select>
-                <input className="newLabelClass"  type="text" ref="newLabel" placeholder="Add A New Label" />
-                <input className="submitClass"  type="submit" value="KEEP" />
-            </form>
+            <div id="form-div">
+                <form className="form" id="form1" onSubmit={this.keepNote}>
+                    <p className="name">
+                        <input className="feedback-input" ref="titleField" type="text" placeholder="Title" />
+                    </p>
+                    <p className="text">
+                        <textarea className="feedback-input"  ref="noteField" rows="4" cols="50" placeholder="Note" />
+                    </p>
+                    <p className="text">
+                    <select defaultValue="No Label" className="feedback-input"  ref="labelField">
+                        {selectOptions}
+                    </select>
+                    </p>
+                    <p className="text">
+                    <input className="feedback-input"  type="text" ref="newLabel" placeholder="Add A New Label" />
+                    </p>
+                    <p className="text">
+                    <input className="feedback-input"  type="submit" value="KEEP" />
+                    </p>
+                </form>
+            </div>
         )
     }
 });
