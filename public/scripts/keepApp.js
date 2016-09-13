@@ -100,33 +100,35 @@ var KeepInput = React.createClass({
     },
     keepNote: function(e) {
         e.preventDefault();
-        var labelValue = this.refs.labelField.value
-        if(this.refs.newLabel.value) {
-            labelValue = this.refs.newLabel.value;
-        }
-        var newObject = {
-            'label': labelValue,
-            'title': this.refs.titleField.value,
-            'text': this.refs.noteField.value
-        };
-        this.refs.titleField.value = '';
-        this.refs.noteField.value = '';
-        this.refs.newLabel.value = '';
-        var oldKeep = this.props.keep;
-        var maxKey = 0;
-        for(var i=0; i<oldKeep.length; i++) {
-            if(oldKeep[i].key > maxKey) {
-                maxKey = oldKeep[i].key;
+        if(this.refs.noteField.value) {
+            var labelValue = this.refs.labelField.value
+            if(this.refs.newLabel.value) {
+                labelValue = this.refs.newLabel.value;
             }
+            var newObject = {
+                'label': labelValue,
+                'title': this.refs.titleField.value || 'No Title',
+                'text': this.refs.noteField.value
+            };
+            this.refs.titleField.value = '';
+            this.refs.noteField.value = '';
+            this.refs.newLabel.value = '';
+            var oldKeep = this.props.keep;
+            var maxKey = 0;
+            for(var i=0; i<oldKeep.length; i++) {
+                if(oldKeep[i].key > maxKey) {
+                    maxKey = oldKeep[i].key;
+                }
+            }
+            newObject.key = parseInt(maxKey) +1;
+            oldKeep.push(newObject);
+            this.props.keepNotePass(
+                this.refs.titleField.value,
+                this.refs.noteField.value,
+                this.refs.labelField.value,
+                oldKeep
+            );
         }
-        newObject.key = parseInt(maxKey) +1;
-        oldKeep.push(newObject);
-        this.props.keepNotePass(
-            this.refs.titleField.value,
-            this.refs.noteField.value,
-            this.refs.labelField.value,
-            oldKeep
-        );
     },
     render: function() {
         var keepData = this.props.keep;
