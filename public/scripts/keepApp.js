@@ -64,33 +64,62 @@ var KeepList = React.createClass({
     render: function() {
         var data = [];
         this.props.keep.forEach(function(individualData) {
+            console.log(individualData.key);
+            var classNameVar = '';
+            if(individualData.key % 5 == 0) {
+                classNameVar = "note red";
+            }
+            else if(individualData.key % 5 == 1) {
+                classNameVar = "note blue";
+            }
+            else if(individualData.key % 5 == 2) {
+                classNameVar = "note yellow";
+            }
+            else if(individualData.key % 5 == 3) {
+                classNameVar = "note orange";
+            }
+            else if(individualData.key % 5 == 4) {
+                classNameVar = "note green";
+            }
             data.push(
-                <tr key={individualData.key}>
-                    <td>
-                        {individualData.label}
-                    </td>
-                    <td>
+                // <tr key={individualData.key}>
+                //     <td>
+                //         {individualData.label}
+                //     </td>
+                //     <td>
+                //         {individualData.title}
+                //     </td>
+                //     <td>
+                //         {individualData.text}
+                //     </td>
+                // </tr>
+                <div className={classNameVar} key={individualData.key}>
+                    <div className="title">
                         {individualData.title}
-                    </td>
-                    <td>
+                        <span className="labelListClass" > {individualData.label}</span>
+                    </div>
+                    <p>
                         {individualData.text}
-                    </td>
-                </tr>
+                    </p>
+                </div>
             );
         })
         return (
-            <table className="tableClass">
-                <thead>
-                    <tr>
-                        <th>LABEL</th>
-                        <th>TITLE</th>
-                        <th>TEXT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data}
-                </tbody>
-            </table>
+            // <table className="tableClass">
+            //     <thead>
+            //         <tr>
+            //             <th>LABEL</th>
+            //             <th>TITLE</th>
+            //             <th>TEXT</th>
+            //         </tr>
+            //     </thead>
+            //     <tbody>
+            //         {data}
+            //     </tbody>
+            // </table>
+            <div>
+                {data}
+            </div>
         )
     }
 });
