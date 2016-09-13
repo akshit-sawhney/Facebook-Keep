@@ -82,17 +82,6 @@ var KeepList = React.createClass({
                 classNameVar = "note green";
             }
             data.push(
-                // <tr key={individualData.key}>
-                //     <td>
-                //         {individualData.label}
-                //     </td>
-                //     <td>
-                //         {individualData.title}
-                //     </td>
-                //     <td>
-                //         {individualData.text}
-                //     </td>
-                // </tr>
                 <div className={classNameVar} key={individualData.key}>
                     <div className="title">
                         {individualData.title}
@@ -105,18 +94,6 @@ var KeepList = React.createClass({
             );
         })
         return (
-            // <table className="tableClass">
-            //     <thead>
-            //         <tr>
-            //             <th>LABEL</th>
-            //             <th>TITLE</th>
-            //             <th>TEXT</th>
-            //         </tr>
-            //     </thead>
-            //     <tbody>
-            //         {data}
-            //     </tbody>
-            // </table>
             <div>
                 {data}
             </div>
