@@ -53,7 +53,7 @@ var OuterContainer = React.createClass({
     },
     render: function() {
         return (
-            <div>
+            <div className="mainDiv">
                 <KeepInput keepNotePass={this.newKeep} keep={this.state.keepData}/>
                 <KeepList keep={this.state.keepData}  titleValue={this.state.titleValue} noteValue={this.state.noteValue} />
             </div>
@@ -79,7 +79,7 @@ var KeepList = React.createClass({
             );
         })
         return (
-            <table>
+            <table className="tableClass">
                 <thead>
                     <tr>
                         <th>LABEL</th>
@@ -136,18 +136,20 @@ var KeepInput = React.createClass({
         });
         var uniques = labelArray.unique();
         var selectOptions = [];
+        selectOptions.push(<option key="blankKey" value="blankValue" disabled>Choose a label</option>);
         for(var i=0; i<uniques.length; i++) {
             selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
         }
         return (
-            <form onSubmit={this.keepNote}>
-                <input ref="titleField" type="text" placeholder="Title" />
-                <textarea ref="noteField" rows="4" cols="50" placeholder="Note" />
-                <select ref="labelField">
+            <form className="formClass" onSubmit={this.keepNote}>
+            <h1 className="formHeadingClass">FACEBOOK KEEP</h1>
+                <input className="titleClass" ref="titleField" type="text" placeholder="Title" />
+                <textarea className="noteClass"  ref="noteField" rows="4" cols="50" placeholder="Note" />
+                <select defaultValue="blankValue" className="labelClass"  ref="labelField">
                     {selectOptions}
                 </select>
-                <input type="text" ref="newLabel" placeholder="New Label" />
-                <input type="submit" value="Add" />
+                <input className="newLabelClass"  type="text" ref="newLabel" placeholder="Add A New Label" />
+                <input className="submitClass"  type="submit" value="KEEP" />
             </form>
         )
     }
