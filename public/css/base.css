@@ -141,6 +141,9 @@ p {
 	color:#30aed6;
 	border:#30aed6 solid 3px;
 }
+.submitButton {
+        background-color: #fffc46;
+}
 
 /* Icons ---------------------------------- */
 #name{

@@ -164,7 +164,7 @@ var KeepInput = React.createClass({
                     <input className="feedback-input lessWidth rightFloat"  type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
                     <p className="text">
-                    <input className="feedback-input"  type="submit" value="KEEP" />
+                    <input className="feedback-input submitButton"  type="submit" value="KEEP" />
                     </p>
                 </form>
             </div>
