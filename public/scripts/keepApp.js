@@ -158,12 +158,10 @@ var KeepInput = React.createClass({
                         <textarea className="feedback-input"  ref="noteField" rows="4" cols="50" placeholder="Note" />
                     </p>
                     <p className="text">
-                    <select defaultValue="No Label" className="feedback-input"  ref="labelField">
+                    <select defaultValue="No Label" className="feedback-input lessWidth"  ref="labelField">
                         {selectOptions}
-                    </select>
-                    </p>
-                    <p className="text">
-                    <input className="feedback-input"  type="text" ref="newLabel" placeholder="Add A New Label" />
+                    </select>&nbsp;OR&nbsp;
+                    <input className="feedback-input lessWidth rightFloat"  type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
                     <p className="text">
                     <input className="feedback-input"  type="submit" value="KEEP" />

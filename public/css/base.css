@@ -94,46 +94,47 @@ p {
 }
 
 #form-div {
-	background-color:rgba(72,72,72,0.4);
-	padding-left:35px;
-	padding-right:35px;
-	padding-top:35px;
-	padding-bottom:50px;
-	width: 450px;
-	float: left;
-	left: 50%;
-	position: absolute;
-  margin-top:30px;
-	margin-left: -260px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+    background-color: rgba(72,72,72,0.4);
+    padding-left: 35px;
+    padding-right: 35px;
+    /*padding-top: 35px;
+    padding-bottom: 35px;*/
+    width: 38%;
+    float: left;
+    /* left: 50%; */
+    /* position: absolute; */
+    /* margin-top: 30px; */
+    margin-left: 28%;
+    /* margin: auto; */
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
 }
 
 .feedback-input {
-	color:#3c3c3c;
-	font-family: Helvetica, Arial, sans-serif;
-  font-weight:500;
-	font-size: 18px;
-	border-radius: 0;
-	line-height: 22px;
-	background-color: #fbfbfb;
-	padding: 13px 13px 13px 54px;
-	margin-bottom: 10px;
-	width:100%;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	box-sizing: border-box;
-  border: 3px solid rgba(0,0,0,0);
+    color: #3c3c3c;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    /* font-size: 18px; */
+    border-radius: 0;
+    /* line-height: 22px; */
+    background-color: #fbfbfb;
+    /* padding: 13px 13px 13px 54px; */
+    /* margin-bottom: 10px; */
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 3px solid rgba(0,0,0,0);
 }
 
 .feedback-input:focus{
-	background: #fff;
-	box-shadow: 0;
-	border: 3px solid #3498db;
-	color: #3498db;
-	outline: none;
-  padding: 13px 13px 13px 54px;
+    background: #fff;
+    box-shadow: 0;
+    border: 3px solid #3498db;
+    /* color: #3498db; */
+    outline: none;
+    /* padding: 13px 13px 13px 54px; */
 }
 
 .focused{
@@ -231,6 +232,12 @@ input:focus, textarea:focus {
 .submit:hover .ease{
   width:100%;
   background-color:white;
+}
+.lessWidth {
+    width: 45%;
+}
+.rightFloat {
+    float: right;
 }
 
 @media only screen and (max-width: 580px) {
