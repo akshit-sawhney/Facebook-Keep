@@ -146,11 +146,12 @@ var KeepInput = React.createClass({
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
     },
-    blurFunction: function() {
-        var hiddenFields = document.getElementsByClassName("text visibilityClass");
-        for(var i=0; i<hiddenFields.length; i++) {
-            var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
-        }
+    blurFunction: function(event) {
+        // console.log(event.target);
+        // var hiddenFields = document.getElementsByClassName("text visibilityClass");
+        // for(var i=0; i<hiddenFields.length; i++) {
+        //     var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+        // }
     },
     render: function() {
         var keepData = this.props.keep;
@@ -165,13 +166,13 @@ var KeepInput = React.createClass({
             selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
         }
         return (
-            <div id="form-div">
-                <form className="form" id="form1" onSubmit={this.keepNote}>
+            <div id="form-div" onFocus={this.cssChangesFunction}  onBlur={this.blurFunction}>
+                <form className="form" id="form1" onSubmit={this.keepNote}  >
                     <p className="name">
-                        <input className="feedback-input" onClick={this.cssChangesFunction}  onBlur={this.blurFunction} ref="titleField" type="text" placeholder="Title" />
+                        <input className="feedback-input" ref="titleField" type="text" placeholder="Title" />
                     </p>
                     <p className="text visibilityClass">
-                        <textarea className="feedback-input"  ref="noteField" rows="4" cols="50" placeholder="Note" />
+                        <input type="text" className="feedback-input"  ref="noteField" placeholder="Note" />
                     </p>
                     <p className="text visibilityClass">
                     <select defaultValue="No Label" className="feedback-input lessWidth"  ref="labelField">

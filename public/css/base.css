@@ -142,7 +142,7 @@ p {
 	border:#30aed6 solid 3px;
 }
 .submitButton {
-        background-color: #fffc46;
+        background-color: white;
 }
 
 /* Icons ---------------------------------- */
@@ -191,7 +191,7 @@ textarea {
 
 input:hover, textarea:hover,
 input:focus, textarea:focus {
-	background-color:white;
+	background-color:grey;
 }
 
 #button-blue{
