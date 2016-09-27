@@ -242,6 +242,9 @@ input:focus, textarea:focus {
 .rightFloat {
     float: right;
 }
+.visibilityClass {
+    display: none;
+}
 
 @media only screen and (max-width: 580px) {
 	#form-div{

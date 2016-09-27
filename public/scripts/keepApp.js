@@ -64,7 +64,6 @@ var KeepList = React.createClass({
     render: function() {
         var data = [];
         this.props.keep.forEach(function(individualData) {
-            console.log(individualData.key);
             var classNameVar = '';
             if(individualData.key % 5 == 0) {
                 classNameVar = "note red";
@@ -119,6 +118,11 @@ var KeepInput = React.createClass({
             this.refs.titleField.value = '';
             this.refs.noteField.value = '';
             this.refs.newLabel.value = '';
+            var hiddenFields = document.getElementsByClassName("text visibilityClass");
+            for(var i=0; i<hiddenFields.length; i++) {
+                console.log("executed");
+                var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+            }
             var oldKeep = this.props.keep;
             var maxKey = 0;
             for(var i=0; i<oldKeep.length; i++) {
@@ -134,6 +138,13 @@ var KeepInput = React.createClass({
                 this.refs.labelField.value,
                 oldKeep
             );
+        }
+    },
+    cssChangesFunction: function() {
+        console.log("Clicked");
+        var hiddenFields = document.getElementsByClassName("text visibilityClass");
+        for(var i=0; i<hiddenFields.length; i++) {
+            var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
     },
     render: function() {
@@ -152,18 +163,18 @@ var KeepInput = React.createClass({
             <div id="form-div">
                 <form className="form" id="form1" onSubmit={this.keepNote}>
                     <p className="name">
-                        <input className="feedback-input" ref="titleField" type="text" placeholder="Title" />
+                        <input className="feedback-input" onClick={this.cssChangesFunction} ref="titleField" type="text" placeholder="Title" />
                     </p>
-                    <p className="text">
+                    <p className="text visibilityClass">
                         <textarea className="feedback-input"  ref="noteField" rows="4" cols="50" placeholder="Note" />
                     </p>
-                    <p className="text">
+                    <p className="text visibilityClass">
                     <select defaultValue="No Label" className="feedback-input lessWidth"  ref="labelField">
                         {selectOptions}
                     </select>&nbsp;OR&nbsp;
                     <input className="feedback-input lessWidth rightFloat"  type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
-                    <p className="text">
+                    <p className="text visibilityClass">
                     <input className="feedback-input submitButton"  type="submit" value="KEEP" />
                     </p>
                 </form>
