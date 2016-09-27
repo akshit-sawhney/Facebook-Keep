@@ -141,10 +141,15 @@ var KeepInput = React.createClass({
         }
     },
     cssChangesFunction: function() {
-        console.log("Clicked");
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
+        }
+    },
+    blurFunction: function() {
+        var hiddenFields = document.getElementsByClassName("text visibilityClass");
+        for(var i=0; i<hiddenFields.length; i++) {
+            var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
         }
     },
     render: function() {
@@ -163,7 +168,7 @@ var KeepInput = React.createClass({
             <div id="form-div">
                 <form className="form" id="form1" onSubmit={this.keepNote}>
                     <p className="name">
-                        <input className="feedback-input" onClick={this.cssChangesFunction} ref="titleField" type="text" placeholder="Title" />
+                        <input className="feedback-input" onClick={this.cssChangesFunction}  onBlur={this.blurFunction} ref="titleField" type="text" placeholder="Title" />
                     </p>
                     <p className="text visibilityClass">
                         <textarea className="feedback-input"  ref="noteField" rows="4" cols="50" placeholder="Note" />
