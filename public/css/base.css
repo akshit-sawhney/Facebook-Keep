@@ -1,4 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+/*@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);*/
+body {
+    background-color: #b6b2b2;
+}
 .mainDiv {
     display: block;
     background: gainsboro;
@@ -21,7 +24,7 @@
 }
 .labelClass {
     display: block;
-    width: 50%;
+    width: 56%;
     margin: auto;
 }
 .newLabelClass {
@@ -95,7 +98,7 @@ p {
 }
 
 #form-div {
-    background-color: rgba(72,72,72,0.4);
+    background-color: white;
     padding-left: 35px;
     padding-right: 35px;
     /*padding-top: 35px;
@@ -115,10 +118,10 @@ p {
     color: #3c3c3c;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 500;
-    /* font-size: 18px; */
+    font-size: 18px;
     border-radius: 0;
     /* line-height: 22px; */
-    background-color: #fbfbfb;
+    /* background-color: #fbfbfb; */
     /* padding: 13px 13px 13px 54px; */
     /* margin-bottom: 10px; */
     width: 100%;
@@ -132,7 +135,7 @@ p {
 .feedback-input:focus{
     background: #fff;
     box-shadow: 0;
-    border: 3px solid #3498db;
+    /*border: 3px solid #3498db;*/
     /* color: #3498db; */
     outline: none;
     /* padding: 13px 13px 13px 54px; */
@@ -144,6 +147,12 @@ p {
 }
 .submitButton {
         background-color: white;
+        width: 50%;
+    float: right;
+    margin-bottom: 20px;
+}
+.submitButton:hover {
+        background-color: #c6c4c4;
 }
 
 
@@ -154,10 +163,10 @@ textarea {
     resize:vertical;
 }
 
-input:hover, textarea:hover,
+/*input:hover, textarea:hover,
 input:focus, textarea:focus {
 	background-color:grey;
-}
+}*/
 
 #button-blue{
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
@@ -210,6 +219,9 @@ input:focus, textarea:focus {
 .visibilityClass {
     display: none;
 }
+.titleClass {
+    font-weight: 800;
+}
 
 @media only screen and (max-width: 580px) {
 	#form-div{
@@ -220,4 +232,7 @@ input:focus, textarea:focus {
 		padding-left: 3%;
 		padding-right: 3%;
 	}
+    .note {
+        width: 80%;
+    }
 }
