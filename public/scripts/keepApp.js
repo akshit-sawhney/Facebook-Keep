@@ -82,6 +82,10 @@ var KeepList = React.createClass({
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
         }
+        document.getElementById("titleID").value = '';
+        document.getElementById("noteID").value = '';
+        document.getElementById("labelID").value = '';
+        document.getElementById("keyID").value = '';
     },
     renderFromList: function(name, e) {
         document.getElementById("titleID").value = name.title;
