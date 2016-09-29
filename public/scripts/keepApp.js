@@ -194,9 +194,11 @@ var KeepInput = React.createClass({
             );
             document.getElementById("submitButtonID").style.display="block";
             document.getElementById("updateButtonID").style.display="none";
+            setTimeout(function() {
             for(var i=0; i<hiddenFields.length; i++) {
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
             }
+        },400);
         }
     },
     cssChangesFunction: function() {
