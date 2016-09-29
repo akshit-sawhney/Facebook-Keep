@@ -221,7 +221,7 @@ var KeepInput = React.createClass({
         }
         return (
             <div id="form-div"  onClick={this.cssChangesFunction}>
-                <form className="form" id="form1" onSubmit={this.keepNote}  >
+                <form className="form" id="form1">
                     <p className="name">
                         <input className="feedback-input" id="titleID" ref="titleField" type="text" placeholder="Title" />
                     </p>
@@ -236,7 +236,7 @@ var KeepInput = React.createClass({
                     <input className="feedback-input lessWidth rightFloat" id="newLabelID" type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
                     <p className="text visibilityClass">
-                    <input className="feedback-input submitButton" id="submitButtonID" type="submit" value="KEEP" />
+                    <input className="feedback-input submitButton"  onClick={this.keepNote} id="submitButtonID" type="button" value="KEEP" />
                     <input className="feedback-input submitButton visibilityClass" onClick={this.updateNote} id="updateButtonID" type="button" value="DONE" />
                     </p>
                 </form>
