@@ -47,6 +47,7 @@
   color: rgba(0,0,0, .7);
   font-family: 'open sans';
   line-height: 24px;
+  cursor: pointer;
 }
 
 .title {

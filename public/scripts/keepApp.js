@@ -51,10 +51,18 @@ var OuterContainer = React.createClass({
             keepData: newKeep
         })
     },
+    updateKeep: function(titleValueNew, noteValueNew, newTitle, newKeep) {
+        this.setState( {
+            labelValue: '',
+            titleValue: '',
+            noteValue: '',
+            keepData: newKeep
+        })
+    },
     render: function() {
         return (
             <div className="mainDiv">
-                <KeepInput keepNotePass={this.newKeep} keep={this.state.keepData}/>
+                <KeepInput keepNotePass={this.newKeep} keepNoteUpdate={this.updateKeep} keep={this.state.keepData}/>
                 <KeepList keep={this.state.keepData}  titleValue={this.state.titleValue} noteValue={this.state.noteValue} />
             </div>
         );
@@ -62,13 +70,25 @@ var OuterContainer = React.createClass({
 });
 var KeepList = React.createClass({
     blurFunction: function(event) {
-        console.log(event.target);
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
         }
     },
+    renderFromList: function(name, e) {
+        document.getElementById("titleID").value = name.title;
+        document.getElementById("noteID").value = name.text;
+        document.getElementById("labelID").value = name.label;
+        document.getElementById("keyID").value = name.key;
+        document.getElementById("submitButtonID").style.display="none";
+        document.getElementById("updateButtonID").style.display="block";
+        var hiddenFields = document.getElementsByClassName("text visibilityClass");
+        for(var i=0; i<hiddenFields.length; i++) {
+            var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
+        }
+    },
     render: function() {
+        var self = this;
         var data = [];
         this.props.keep.forEach(function(individualData) {
             var classNameVar = '';
@@ -88,7 +108,7 @@ var KeepList = React.createClass({
                 classNameVar = "note green";
             }
             data.push(
-                <div className={classNameVar} key={individualData.key}>
+                <div className={classNameVar} key={individualData.key} onDoubleClick={self.renderFromList.bind(self, individualData)}>
                     <div className="title">
                         {individualData.title}
                         <span className="labelListClass" > {individualData.label}</span>
@@ -127,7 +147,6 @@ var KeepInput = React.createClass({
             this.refs.newLabel.value = '';
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             for(var i=0; i<hiddenFields.length; i++) {
-                console.log("executed");
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
             }
             var oldKeep = this.props.keep;
@@ -147,8 +166,40 @@ var KeepInput = React.createClass({
             );
         }
     },
+    updateNote: function(e) {
+        e.preventDefault();
+        var keyValue = document.getElementById("keyID").value;
+        if(this.refs.noteField.value) {
+            var labelValue = this.refs.labelField.value
+            if(this.refs.newLabel.value) {
+                labelValue = this.refs.newLabel.value;
+            }
+            var newObject = {
+                'label': labelValue,
+                'title': this.refs.titleField.value || 'No Title',
+                'text': this.refs.noteField.value
+            };
+            this.refs.titleField.value = '';
+            this.refs.noteField.value = '';
+            this.refs.newLabel.value = '';
+            var hiddenFields = document.getElementsByClassName("text visibilityClass");
+            var oldKeep = this.props.keep;
+            oldKeep[keyValue] = newObject;
+            oldKeep[keyValue].key = keyValue;
+            this.props.keepNoteUpdate(
+                this.refs.titleField.value,
+                this.refs.noteField.value,
+                this.refs.labelField.value,
+                oldKeep
+            );
+            document.getElementById("submitButtonID").style.display="block";
+            document.getElementById("updateButtonID").style.display="none";
+            for(var i=0; i<hiddenFields.length; i++) {
+                var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+            }
+        }
+    },
     cssChangesFunction: function() {
-        console.log("in");
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
@@ -170,19 +221,21 @@ var KeepInput = React.createClass({
             <div id="form-div"  onClick={this.cssChangesFunction}>
                 <form className="form" id="form1" onSubmit={this.keepNote}  >
                     <p className="name">
-                        <input className="feedback-input" ref="titleField" type="text" placeholder="Title" />
+                        <input className="feedback-input" id="titleID" ref="titleField" type="text" placeholder="Title" />
+                    </p>
+                    <input type="hidden" id="keyID" ref="keyField" />
+                    <p className="text visibilityClass">
+                        <textarea className="feedback-input" id="noteID" ref="noteField" placeholder="Note" />
                     </p>
                     <p className="text visibilityClass">
-                        <textarea className="feedback-input"  ref="noteField" placeholder="Note" />
-                    </p>
-                    <p className="text visibilityClass">
-                    <select defaultValue="No Label" className="feedback-input lessWidth"  ref="labelField">
+                    <select defaultValue="No Label" id="labelID" className="feedback-input lessWidth"  ref="labelField">
                         {selectOptions}
                     </select>&nbsp;OR&nbsp;
-                    <input className="feedback-input lessWidth rightFloat"  type="text" ref="newLabel" placeholder="Add A New Label" />
+                    <input className="feedback-input lessWidth rightFloat" id="newLabelID" type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
                     <p className="text visibilityClass">
-                    <input className="feedback-input submitButton"  type="submit" value="KEEP" />
+                    <input className="feedback-input submitButton" id="submitButtonID" type="submit" value="KEEP" />
+                    <input className="feedback-input submitButton visibilityClass" onClick={this.updateNote} id="updateButtonID" type="button" value="DONE" />
                     </p>
                 </form>
             </div>
