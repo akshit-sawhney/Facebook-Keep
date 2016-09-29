@@ -61,6 +61,13 @@ var OuterContainer = React.createClass({
     }
 });
 var KeepList = React.createClass({
+    blurFunction: function(event) {
+        console.log(event.target);
+        var hiddenFields = document.getElementsByClassName("text visibilityClass");
+        for(var i=0; i<hiddenFields.length; i++) {
+            var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+        }
+    },
     render: function() {
         var data = [];
         this.props.keep.forEach(function(individualData) {
@@ -93,7 +100,7 @@ var KeepList = React.createClass({
             );
         })
         return (
-            <div>
+            <div   onClick={this.blurFunction}>
                 {data}
             </div>
         )
@@ -141,17 +148,11 @@ var KeepInput = React.createClass({
         }
     },
     cssChangesFunction: function() {
+        console.log("in");
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
-    },
-    blurFunction: function(event) {
-        // console.log(event.target);
-        // var hiddenFields = document.getElementsByClassName("text visibilityClass");
-        // for(var i=0; i<hiddenFields.length; i++) {
-        //     var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
-        // }
     },
     render: function() {
         var keepData = this.props.keep;
@@ -166,7 +167,7 @@ var KeepInput = React.createClass({
             selectOptions.push(<option key={uniques[i]}> {uniques[i]} </option>);
         }
         return (
-            <div id="form-div" onFocus={this.cssChangesFunction}  onBlur={this.blurFunction}>
+            <div id="form-div"  onClick={this.cssChangesFunction}>
                 <form className="form" id="form1" onSubmit={this.keepNote}  >
                     <p className="name">
                         <input className="feedback-input" ref="titleField" type="text" placeholder="Title" />
