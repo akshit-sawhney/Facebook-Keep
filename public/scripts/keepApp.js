@@ -59,10 +59,18 @@ var OuterContainer = React.createClass({
             keepData: newKeep
         })
     },
+    discardThis: function(newKeep) {
+        this.setState( {
+            labelValue: '',
+            titleValue: '',
+            noteValue: '',
+            keepData: newKeep
+        })
+    },
     render: function() {
         return (
             <div className="mainDiv">
-                <KeepInput keepNotePass={this.newKeep} keepNoteUpdate={this.updateKeep} keep={this.state.keepData}/>
+                <KeepInput keepNotePass={this.newKeep} keepNoteUpdate={this.updateKeep} keepNoteDiscard={this.discardThis} keep={this.state.keepData}/>
                 <KeepList keep={this.state.keepData}  titleValue={this.state.titleValue} noteValue={this.state.noteValue} />
             </div>
         );
@@ -82,6 +90,7 @@ var KeepList = React.createClass({
         document.getElementById("keyID").value = name.key;
         document.getElementById("submitButtonID").style.display="none";
         document.getElementById("updateButtonID").style.display="block";
+        document.getElementById("discardNoteID").style.display="block";
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
@@ -194,12 +203,37 @@ var KeepInput = React.createClass({
             );
             document.getElementById("submitButtonID").style.display="block";
             document.getElementById("updateButtonID").style.display="none";
+            document.getElementById("discardNoteID").style.display="none";
             setTimeout(function() {
             for(var i=0; i<hiddenFields.length; i++) {
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
             }
         },400);
         }
+    },
+    discardNote: function(e) {
+        e.preventDefault();
+        var keyValue = document.getElementById("keyID").value;
+            this.refs.titleField.value = '';
+            this.refs.noteField.value = '';
+            this.refs.newLabel.value = '';
+            var hiddenFields = document.getElementsByClassName("text visibilityClass");
+            var oldKeep = this.props.keep;
+            console.log(oldKeep);
+            for(var i=0; i< oldKeep.length; i++) {
+                if(oldKeep[i].key == keyValue) {
+                    oldKeep.splice(i,1);
+                }
+            }
+            this.props.keepNoteDiscard(oldKeep);
+            document.getElementById("submitButtonID").style.display="block";
+            document.getElementById("updateButtonID").style.display="none";
+            document.getElementById("discardNoteID").style.display="none";
+            setTimeout(function() {
+            for(var i=0; i<hiddenFields.length; i++) {
+                var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+            }
+        },400);
     },
     cssChangesFunction: function() {
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
@@ -236,8 +270,9 @@ var KeepInput = React.createClass({
                     <input className="feedback-input lessWidth rightFloat" id="newLabelID" type="text" ref="newLabel" placeholder="Add A New Label" />
                     </p>
                     <p className="text visibilityClass">
-                    <input className="feedback-input submitButton"  onClick={this.keepNote} id="submitButtonID" type="button" value="KEEP" />
+                    <input className="feedback-input submitButton"  onClick={this.keepNote} id="submitButtonID" type="submit" value="KEEP" />
                     <input className="feedback-input submitButton visibilityClass" onClick={this.updateNote} id="updateButtonID" type="button" value="DONE" />
+                    <input className="feedback-input submitButton visibilityClass" onClick={this.discardNote} id="discardNoteID" type="button" value="DISCARD THIS NOTE" />
                     </p>
                 </form>
             </div>
