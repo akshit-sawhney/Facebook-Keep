@@ -298,6 +298,12 @@ var KeepInput = React.createClass({
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
         document.getElementById("labelID").value = currentFilterValue;
+        if(currentFilterValue == "No Label") {
+            document.getElementById("newLabelID").disabled = false;
+        }
+        else {
+            document.getElementById("newLabelID").disabled = true;
+        }
     },
     render: function() {
         var keepData = this.props.keep;
