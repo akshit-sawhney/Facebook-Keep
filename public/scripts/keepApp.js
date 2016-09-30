@@ -327,6 +327,9 @@ var KeepInput = React.createClass({
             document.getElementById("submitButtonID").style.display="block";
             document.getElementById("updateButtonID").style.display="none";
             document.getElementById("discardNoteID").style.display="none";
+            var database = firebase.database();
+            var starCountRef = firebase.database().ref('/'+ '"'+ keyValue+'"').remove();
+
             setTimeout(function() {
             for(var i=0; i<hiddenFields.length; i++) {
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
