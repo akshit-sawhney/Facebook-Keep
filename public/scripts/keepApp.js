@@ -141,6 +141,14 @@ var KeepList = React.createClass({
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
+            var currentFilterValue = document.getElementById("filterID").value;
+        // document.getElementById("labelID").value = currentFilterValue;
+        if(currentFilterValue == "No Label") {
+            document.getElementById("newLabelID").disabled = false;
+        }
+        else {
+            document.getElementById("newLabelID").disabled = true;
+        }
     },
     filterFunction: function() {
         var completeData = this.props.keep;
@@ -242,10 +250,6 @@ var KeepInput = React.createClass({
                 "display": true,
                 "color": this.refs.colorField.value
             };
-            this.refs.titleField.value = "";
-            this.refs.noteField.value = "";
-            this.refs.newLabel.value = "";
-            this.refs.colorField.value = "White";
             var oldKeep = this.props.keep;
             var maxKey = 0;
             for(var i=0; i<oldKeep.length; i++) {
@@ -255,12 +259,26 @@ var KeepInput = React.createClass({
             }
             newObject.key = parseInt(maxKey) +1;
             oldKeep.push(newObject);
+            var database = firebase.database();
+            var starCountRef = firebase.database().ref('/'+ '"'+ newObject.key+'"').set(
+                {
+                    "label": labelValue,
+                    "title": this.refs.titleField.value || "No Title",
+                    "text": this.refs.noteField.value,
+                    "display": true,
+                    "color": this.refs.colorField.value
+                }
+            );
             this.props.keepNotePass(
                 this.refs.titleField.value,
                 this.refs.noteField.value,
                 this.refs.labelField.value,
                 oldKeep
             );
+            this.refs.titleField.value = "";
+            this.refs.noteField.value = "";
+            this.refs.newLabel.value = "";
+            this.refs.colorField.value = "White";
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             setTimeout(function() {
                 for(var i=0; i<hiddenFields.length; i++) {
@@ -285,14 +303,28 @@ var KeepInput = React.createClass({
                 "display": true,
                 "color": this.refs.colorField.value
             };
+            var database = firebase.database();
+            var starCountRef = firebase.database().ref('/'+ '"'+ keyValue+'"').set(
+                {
+                    "label": labelValue,
+                    "title": this.refs.titleField.value || "No Title",
+                    "text": this.refs.noteField.value,
+                    "display": true,
+                    "color": this.refs.colorField.value
+                }
+            );
             this.refs.titleField.value = "";
             this.refs.noteField.value = "";
             this.refs.newLabel.value = "";
             this.refs.colorField.value = "White";
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             var oldKeep = this.props.keep;
-            oldKeep[keyValue] = newObject;
-            oldKeep[keyValue].key = keyValue;
+            for(var i=0; i< oldKeep.length; i++) {
+                if(oldKeep[i].key == keyValue) {
+                    newObject.key = parseInt(keyValue);
+                    oldKeep[i] = newObject;
+                }
+            }
             this.props.keepNoteUpdate(
                 this.refs.titleField.value,
                 this.refs.noteField.value,
@@ -338,17 +370,9 @@ var KeepInput = React.createClass({
         document.getElementById("form-div").style.backgroundColor="white";
     },
     cssChangesFunction: function() {
-        var currentFilterValue = document.getElementById("filterID").value;
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
-        }
-        document.getElementById("labelID").value = currentFilterValue;
-        if(currentFilterValue == "No Label") {
-            document.getElementById("newLabelID").disabled = false;
-        }
-        else {
-            document.getElementById("newLabelID").disabled = true;
         }
     },
     colorChangeListener: function() {
@@ -414,7 +438,7 @@ var KeepInput = React.createClass({
                     <p className="text visibilityClass">
                     <input className="feedback-input submitButton"  onClick={this.keepNote} id="submitButtonID" type="submit" value="KEEP" />
                     <input className="feedback-input submitButton visibilityClass" onClick={this.updateNote} id="updateButtonID" type="button" value="DONE" /><br />
-                    <input className="feedback-input submitButton visibilityClass" onClick={this.discardNote} id="discardNoteID" type="button" value="DISCARD THIS NOTE" />
+                    <input className="feedback-input submitButton visibilityClass" onClick={this.discardNote} id="discardNoteID" type="button" value="DISCARD" />
                     </p>
                 </form>
             </div>
