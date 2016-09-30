@@ -67,6 +67,9 @@ p {
 .red {
   background: #F95C5C;
 }
+.white {
+  background: white;
+}
 .blue {
   background: #3FC3FF;
 }
@@ -147,7 +150,7 @@ p {
 }
 .submitButton {
         background-color: white;
-        width: 50%;
+        width: 56%;
     float: right;
     margin-bottom: 20px;
 }

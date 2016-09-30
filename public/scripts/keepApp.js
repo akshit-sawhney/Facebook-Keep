@@ -20,21 +20,24 @@ var existingData = [
         'label': 'OTHER',
         'title': 'REAL MADRID',
         'text': 'HALA MADRID',
-        'display': true
+        'display': true,
+        'color': 'Red'
     },
     {
         'key': 1,
         'label': 'FOOTBALL',
         'title': 'MAN UNITED',
         'text': 'GLORY GLORY MAN UNITED',
-        'display': true
+        'display': true,
+        'color': 'Blue'
     },
     {
         'key': 2,
         'label': 'FOOTBALL',
         'title': 'LIVERPOOL',
         'text': 'YOU WILL NEVER WALK ALONE',
-        'display': true
+        'display': true,
+        'color': 'Yellow'
     }
 ];
 var OuterContainer = React.createClass({
@@ -106,6 +109,26 @@ var KeepList = React.createClass({
         document.getElementById("submitButtonID").style.display="none";
         document.getElementById("updateButtonID").style.display="block";
         document.getElementById("discardNoteID").style.display="block";
+        document.getElementById("colorID").value = name.color;
+        var colorValue = name.color;
+        if(colorValue == "White") {
+            document.getElementById("form-div").style.backgroundColor="white";
+        }
+        if(colorValue == "Red") {
+            document.getElementById("form-div").style.backgroundColor="#F95C5C";
+        }
+        if(colorValue == "Blue") {
+            document.getElementById("form-div").style.backgroundColor="#3FC3FF";
+        }
+        if(colorValue == "Yellow") {
+            document.getElementById("form-div").style.backgroundColor="#FFFC46";
+        }
+        if(colorValue == "Orange") {
+            document.getElementById("form-div").style.backgroundColor="#FF6D3F";
+        }
+        if(colorValue == "Green") {
+            document.getElementById("form-div").style.backgroundColor="#96D841";
+        }
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
@@ -140,19 +163,22 @@ var KeepList = React.createClass({
         var data = [];
         this.props.keep.forEach(function(individualData) {
             var classNameVar = '';
-            if(individualData.key % 5 == 0) {
+            if(individualData.color == "White") {
+                classNameVar = "note white";
+            }
+            if(individualData.color == "Red") {
                 classNameVar = "note red";
             }
-            else if(individualData.key % 5 == 1) {
+            if(individualData.color == "Blue") {
                 classNameVar = "note blue";
             }
-            else if(individualData.key % 5 == 2) {
+            if(individualData.color == "Yellow") {
                 classNameVar = "note yellow";
             }
-            else if(individualData.key % 5 == 3) {
+            if(individualData.color == "Orange") {
                 classNameVar = "note orange";
             }
-            else if(individualData.key % 5 == 4) {
+            if(individualData.color == "Green") {
                 classNameVar = "note green";
             }
             if(individualData.display) {
@@ -205,15 +231,13 @@ var KeepInput = React.createClass({
                 'label': labelValue,
                 'title': this.refs.titleField.value || 'No Title',
                 'text': this.refs.noteField.value,
-                'display': true
+                'display': true,
+                'color': this.refs.colorField.value
             };
             this.refs.titleField.value = '';
             this.refs.noteField.value = '';
             this.refs.newLabel.value = '';
-            var hiddenFields = document.getElementsByClassName("text visibilityClass");
-            for(var i=0; i<hiddenFields.length; i++) {
-                var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
-            }
+            this.refs.colorField.value = 'White';
             var oldKeep = this.props.keep;
             var maxKey = 0;
             for(var i=0; i<oldKeep.length; i++) {
@@ -229,6 +253,13 @@ var KeepInput = React.createClass({
                 this.refs.labelField.value,
                 oldKeep
             );
+            var hiddenFields = document.getElementsByClassName("text visibilityClass");
+            setTimeout(function() {
+                for(var i=0; i<hiddenFields.length; i++) {
+                    document.getElementsByClassName("text visibilityClass")[i].style.display="none";
+                }
+            },400);
+            document.getElementById("form-div").style.backgroundColor="white";
         }
     },
     updateNote: function(e) {
@@ -243,11 +274,13 @@ var KeepInput = React.createClass({
                 'label': labelValue,
                 'title': this.refs.titleField.value || 'No Title',
                 'text': this.refs.noteField.value,
-                'display': true
+                'display': true,
+                'color': this.refs.colorField.value
             };
             this.refs.titleField.value = '';
             this.refs.noteField.value = '';
             this.refs.newLabel.value = '';
+            this.refs.colorField.value = 'White';
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             var oldKeep = this.props.keep;
             oldKeep[keyValue] = newObject;
@@ -266,6 +299,7 @@ var KeepInput = React.createClass({
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
             }
         },400);
+        document.getElementById("form-div").style.backgroundColor="white";
         }
     },
     discardNote: function(e) {
@@ -290,6 +324,7 @@ var KeepInput = React.createClass({
                 var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
             }
         },400);
+        document.getElementById("form-div").style.backgroundColor="white";
     },
     cssChangesFunction: function() {
         var currentFilterValue = document.getElementById("filterID").value;
@@ -303,6 +338,28 @@ var KeepInput = React.createClass({
         }
         else {
             document.getElementById("newLabelID").disabled = true;
+        }
+    },
+    colorChangeListener: function() {
+        var existingClassName = document.getElementById("form-div").className;
+        var colorValue = document.getElementById("colorID").value;
+        if(colorValue == "White") {
+            document.getElementById("form-div").style.backgroundColor="white";
+        }
+        if(colorValue == "Red") {
+            document.getElementById("form-div").style.backgroundColor="#F95C5C";
+        }
+        if(colorValue == "Blue") {
+            document.getElementById("form-div").style.backgroundColor="#3FC3FF";
+        }
+        if(colorValue == "Yellow") {
+            document.getElementById("form-div").style.backgroundColor="#FFFC46";
+        }
+        if(colorValue == "Orange") {
+            document.getElementById("form-div").style.backgroundColor="#FF6D3F";
+        }
+        if(colorValue == "Green") {
+            document.getElementById("form-div").style.backgroundColor="#96D841";
         }
     },
     render: function() {
@@ -332,6 +389,16 @@ var KeepInput = React.createClass({
                         {selectOptions}
                     </select>&nbsp;OR&nbsp;
                     <input className="feedback-input lessWidth rightFloat" id="newLabelID" type="text" ref="newLabel" placeholder="Add A New Label" />
+                    </p>
+                    <p className="text visibilityClass">
+                    <select onChange={this.colorChangeListener} defaultValue="White" id="colorID" className="feedback-input"  ref="colorField">
+                        <option value="White">White</option>
+                        <option value="Red">Red</option>
+                        <option value="Blue">Blue</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Green">Green</option>
+                    </select>
                     </p>
                     <p className="text visibilityClass">
                     <input className="feedback-input submitButton"  onClick={this.keepNote} id="submitButtonID" type="submit" value="KEEP" />
