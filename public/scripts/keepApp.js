@@ -14,70 +14,78 @@ Array.prototype.unique = function() {
     }
     return arr;
 }
-var existingData = [
-    {
-        'key': 0,
-        'label': 'OTHER',
-        'title': 'REAL MADRID',
-        'text': 'HALA MADRID',
-        'display': true,
-        'color': 'Red'
-    },
-    {
-        'key': 1,
-        'label': 'FOOTBALL',
-        'title': 'MAN UNITED',
-        'text': 'GLORY GLORY MAN UNITED',
-        'display': true,
-        'color': 'Blue'
-    },
-    {
-        'key': 2,
-        'label': 'FOOTBALL',
-        'title': 'LIVERPOOL',
-        'text': 'YOU WILL NEVER WALK ALONE',
-        'display': true,
-        'color': 'Yellow'
-    }
-];
 var OuterContainer = React.createClass({
     getInitialState: function() {
         return {
-            labelValue: '',
-            titleValue: '',
-            noteValue: '',
-            keepData: existingData
+            labelValue: "",
+            titleValue: "",
+            noteValue: "",
+            keepData: []
         }
+    },componentDidMount: function() {
+            this.loadContent();
+    },
+    loadContent: function() {
+        var database = firebase.database();
+        var starCountRef = firebase.database().ref('/');
+        var self = this
+        starCountRef.on('value', function(snapshot) {
+            var allResults = snapshot.val();
+            var formattedData = [];
+            for(var singleValue in allResults) {
+                var blankObject = {
+                    "key": 0,
+                    "label": "",
+                    "title": "",
+                    "text": "",
+                    "display": "",
+                    "color": ""
+                };
+                blankObject.key = parseInt(singleValue.slice(1, -1));
+                blankObject.label = allResults[singleValue].label;
+                blankObject.title = allResults[singleValue].title;
+                blankObject.text = allResults[singleValue].text;
+                blankObject.display = allResults[singleValue].display;
+                blankObject.color = allResults[singleValue].color;
+                formattedData.push(blankObject);
+            }
+            self.setState({
+                labelValue: "",
+                titleValue: "",
+                noteValue: "",
+                keepData: formattedData
+            });
+        });
     },
     newKeep: function(titleValueNew, noteValueNew, newTitle, newKeep) {
         this.setState( {
-            labelValue: '',
-            titleValue: '',
-            noteValue: '',
+            labelValue: "",
+            titleValue: "",
+            noteValue: "",
             keepData: newKeep
         })
     },
     updateKeep: function(titleValueNew, noteValueNew, newTitle, newKeep) {
         this.setState( {
-            labelValue: '',
-            titleValue: '',
-            noteValue: '',
+            labelValue: "",
+            titleValue: "",
+            noteValue: "",
             keepData: newKeep
         })
     },
     discardThis: function(newKeep) {
         this.setState( {
-            labelValue: '',
-            titleValue: '',
-            noteValue: '',
+            labelValue: "",
+            titleValue: "",
+            noteValue: "",
             keepData: newKeep
         })
     },
     filterThis: function(filteredKeep) {
         this.setState( {
-            labelValue: '',
-            titleValue: '',
-            noteValue: '',
+            labelValue: "",
+            titleValue: "",
+            noteValue: "",
             keepData: filteredKeep
         })
     },
@@ -96,10 +104,10 @@ var KeepList = React.createClass({
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="none";
         }
-        document.getElementById("titleID").value = '';
-        document.getElementById("noteID").value = '';
-        document.getElementById("labelID").value = '';
-        document.getElementById("keyID").value = '';
+        document.getElementById("titleID").value = "";
+        document.getElementById("noteID").value = "";
+        document.getElementById("labelID").value = "";
+        document.getElementById("keyID").value = "";
     },
     renderFromList: function(name, e) {
         document.getElementById("titleID").value = name.title;
@@ -162,7 +170,7 @@ var KeepList = React.createClass({
         var self = this;
         var data = [];
         this.props.keep.forEach(function(individualData) {
-            var classNameVar = '';
+            var classNameVar = "";
             if(individualData.color == "White") {
                 classNameVar = "note white";
             }
@@ -228,16 +236,16 @@ var KeepInput = React.createClass({
                 labelValue = this.refs.newLabel.value;
             }
             var newObject = {
-                'label': labelValue,
-                'title': this.refs.titleField.value || 'No Title',
-                'text': this.refs.noteField.value,
-                'display': true,
-                'color': this.refs.colorField.value
+                "label": labelValue,
+                "title": this.refs.titleField.value || "No Title",
+                "text": this.refs.noteField.value,
+                "display": true,
+                "color": this.refs.colorField.value
             };
-            this.refs.titleField.value = '';
-            this.refs.noteField.value = '';
-            this.refs.newLabel.value = '';
-            this.refs.colorField.value = 'White';
+            this.refs.titleField.value = "";
+            this.refs.noteField.value = "";
+            this.refs.newLabel.value = "";
+            this.refs.colorField.value = "White";
             var oldKeep = this.props.keep;
             var maxKey = 0;
             for(var i=0; i<oldKeep.length; i++) {
@@ -271,16 +279,16 @@ var KeepInput = React.createClass({
                 labelValue = this.refs.newLabel.value;
             }
             var newObject = {
-                'label': labelValue,
-                'title': this.refs.titleField.value || 'No Title',
-                'text': this.refs.noteField.value,
-                'display': true,
-                'color': this.refs.colorField.value
+                "label": labelValue,
+                "title": this.refs.titleField.value || "No Title",
+                "text": this.refs.noteField.value,
+                "display": true,
+                "color": this.refs.colorField.value
             };
-            this.refs.titleField.value = '';
-            this.refs.noteField.value = '';
-            this.refs.newLabel.value = '';
-            this.refs.colorField.value = 'White';
+            this.refs.titleField.value = "";
+            this.refs.noteField.value = "";
+            this.refs.newLabel.value = "";
+            this.refs.colorField.value = "White";
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             var oldKeep = this.props.keep;
             oldKeep[keyValue] = newObject;
@@ -305,9 +313,9 @@ var KeepInput = React.createClass({
     discardNote: function(e) {
         e.preventDefault();
         var keyValue = document.getElementById("keyID").value;
-            this.refs.titleField.value = '';
-            this.refs.noteField.value = '';
-            this.refs.newLabel.value = '';
+            this.refs.titleField.value = "";
+            this.refs.noteField.value = "";
+            this.refs.newLabel.value = "";
             var hiddenFields = document.getElementsByClassName("text visibilityClass");
             var oldKeep = this.props.keep;
             for(var i=0; i< oldKeep.length; i++) {
@@ -410,4 +418,4 @@ var KeepInput = React.createClass({
         )
     }
 });
-ReactDOM.render(<OuterContainer keep={ existingData } />, document.getElementById('content'));
+ReactDOM.render(<OuterContainer url='sample.js' />, document.getElementById("content"));
