@@ -131,7 +131,6 @@ var KeepList = React.createClass({
                 }
             }
             filteredData = completeData;
-            console.log(filteredData);
         }
         this.props.filterKeepData(filteredData);
 
@@ -293,10 +292,12 @@ var KeepInput = React.createClass({
         },400);
     },
     cssChangesFunction: function() {
+        var currentFilterValue = document.getElementById("filterID").value;
         var hiddenFields = document.getElementsByClassName("text visibilityClass");
         for(var i=0; i<hiddenFields.length; i++) {
             var currentField = document.getElementsByClassName("text visibilityClass")[i].style.display="block";
         }
+        document.getElementById("labelID").value = currentFilterValue;
     },
     render: function() {
         var keepData = this.props.keep;
